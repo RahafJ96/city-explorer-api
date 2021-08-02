@@ -3,12 +3,13 @@
 const express = require('express'); // import express
 const server = express();
 const cors = require('cors');
-require('dotenv').config();
+// require('dotenv').config();
 
-const pokeData = require('./weather.json');
+//import the weather data
+const weatherData = require('./data/weather.json');
 server.use(cors()); // the server can take any req from any client
 
-const PORT = process.env.PORT;
+const PORT = 3001;
 
 
 // http://localhost:3001/ (/ === root route)
@@ -22,22 +23,24 @@ server.get('/test',(request,response) => {
     response.send(str);
 })
 
-// http://localhost:3001/getWeather (/getWeather === route)
-server.get('/getWeather',(req,res) => {
-    // console.log(pokeData);
-    console.log(req);
-    let weatherInfo = weatherData.results.map(item => {
-        return item.name;
+// http://localhost:3001/getWeatherStatus (/getWeatherStatus === route)
+server.get('/getWeatherStatus',(req,res) => {
+    console.log(weatherData);
+    let getData = weatherData.map(item => {
+        return item.city_name
     })
-    res.status(200).send(weatherInfo);
+    console.log(getData);
+    res.status(200).send(getData);
 })
 
-// http://localhost:3001/getWeatherStatus?name=bulbasaur (/getWeatherStatus === route)
-server.get('/getWeatherStatus', (req,res) => {
+
+// http://localhost:3001/getWeatherInfo?city_name=Amman (/getWeatherInfo === route)
+server.get('/getWeatherInfo', (req,res) => {
     console.log(req.query);
-    const name = req.query.name;
-    let weatherItem = weatherData.results.find(item => {
-        if(item.name == name)
+    const cityName = req.query.city_name;
+    console.log(cityName);
+    let weatherItem = weatherData.find(item => {
+        if(item.city_name == cityName)
         return item;
     })
     console.log(weatherItem);
@@ -45,7 +48,7 @@ server.get('/getWeatherStatus', (req,res) => {
 })
 
 server.get('*', (req,res) => {
-    res.status(404).send('page not found');
+    res.status(404).send('Page not Found');
 })
 
 
