@@ -3,39 +3,49 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const weather = require('./data/weather.json');
+const weatherJSON = require('./data/weather.json');
 
 const server = express();
 server.use(cors());
 
 const PORT = process.env.PORT;
 
+//https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&key=528201f1d0e44da091e9e2dd6b0a8bd8&include=minutely
+//http://api.weatherbit.io/v2.0/current
 //localhost:3001/weather?searchQuery=amman
 server.get('/weather', getWeather);
-server.use('*', (request, response) => response.status(404).send('page not found'));
 
-function getWeather(request, response) {
-  let searchQuery = request.query.searchQuery;
-  const city = weather.find(city => city.city_name.toLowerCase() === searchQuery.toLowerCase());
+server.use('*', (req, res) => 
+res.status(404).send('Page not found'));
+
+function getWeather(req, res) {
+  let searchQuery = req.query.searchQuery;
+  
+  const city = weatherJSON.find(city => 
+  city.city_name.toLowerCase() === searchQuery.toLowerCase());
+  
   if(city != undefined)
   {
-    const weatherArray = city.data.map(day => new Forecast(day));
-    response.status(200).send(weatherArray);
+    const weatherArray = city.data.map(day => 
+    new Forecast(day)
+    );
+    
+    res.status(200).send(weatherArray);
   }
   else
   {
-    errorHandler(response);
+    errorHandler(res);
   }
 }
 
-function errorHandler(response) {
-  response.status(500).send('something went wrong');
+function errorHandler(res) {
+  res.status(500).send('Something went Wrong');
 }
   
 
-function Forecast(day) {
-  this.date = day.valid_date
-  this.description = day.weather.description
+function Forecast(item) {
+  this.date = item.valid_date
+  this.description = item.weather.description
 }
 
 server.listen(PORT, () => console.log(`I'm listening on ${PORT}`))
