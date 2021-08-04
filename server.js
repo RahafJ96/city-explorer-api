@@ -18,7 +18,7 @@ server.get('/weather', getWeather);
 server.use('*', (req, res) => 
 res.status(404).send('Page not found'));
 
-function getWeather(req, res) {
+ function getWeather(req, res) {
   let searchQuery = req.query.searchQuery;
   
   const city = weatherJSON.find(city => 
