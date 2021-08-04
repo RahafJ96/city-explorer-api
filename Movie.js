@@ -1,8 +1,8 @@
 const axios = require('axios');
 
-const movies = {};
+const Movie = {};
 
- movies.handelMovies = function(req, res) {
+ Movie.handelMovies = function(req, res) {
     const city = req.query.city
     const URLMovie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_KEY}&query=${city}`
 
@@ -11,7 +11,7 @@ const movies = {};
         .then(movieStatus => {
             let moviesArray = movieStatus.data.results
 
-            res.send(movies.moviesForObject(moviesArray));
+            res.send(Movie.moviesForObject(moviesArray));
         })
         .catch(err => {
             res.send(err);
@@ -19,7 +19,7 @@ const movies = {};
 }
 
 
-movies.moviesForObject = (moviesObj) => {
+Movie.moviesForObject = (moviesObj) => {
 
     const forMoviesObj = [];
     moviesObj.map(element => {
@@ -52,4 +52,4 @@ class Movies {
     }
 }
 
-module.exports = movies;
+module.exports = Movie;
