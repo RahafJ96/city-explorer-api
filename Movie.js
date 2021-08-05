@@ -28,7 +28,7 @@ Movie.moviesForObject = (moviesObj) => {
         const overview = element.overview
         const vote_average = element.vote_average
         const vote_count = element.vote_count
-        const poster_path = process.env.IMG_URL + element.poster_path
+        const poster_path = process.env.IMG_URL+element.poster_path
         const popularity = element.popularity
         const release_date = element.release_date
 
