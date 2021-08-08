@@ -8,7 +8,7 @@ const axios = require('axios');
 server.use(cors());
 const PORT = process.env.PORT;
 const Weather = require('./Weather');
-const Movie = require('./Movie')
+const movies = require('./movies')
 //Weather
 
 //http://localhost:3010/getWeather?lat=31.95&lon=35.91&cityName=Amman
@@ -55,7 +55,7 @@ server.get('/getWeather', Weather.handelWeather);
 //MOVIES
 //https://api.themoviedb.org/3/movie/550?api_key=41875812c2b323e366b30029131d151b
 //http://localhost:3010/movies?city=Amman
-server.get('/movies', Movie.handelMovies);
+server.get('/movies', movies.handelMovies);
 
 // async function handelMovies(req, res) {
 //     const city = req.query.city

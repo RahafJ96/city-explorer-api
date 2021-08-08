@@ -11,8 +11,8 @@ Weather.handelWeather = function(req, res) {
 
     axios
         .get(URL)
-        .then(Weathertatus => {
-            let weatherArray = Weathertatus.data.data
+        .then(weathertatus => {
+            let weatherArray = weathertatus.data.data
             res.send(Weather.wetherForObject(weatherArray));
         })
         .catch(err => {

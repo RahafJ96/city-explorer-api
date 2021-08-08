@@ -1,29 +1,37 @@
 const axios = require('axios');
 
-const Movie = {};
+const movies = {};
+const myMemory={};
 
- Movie.handelMovies = function(req, res) {
+movies.handelMovies = function(req, res) {
     const city = req.query.city
-    const URLMovie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_KEY}&query=${city}`
 
+    if(myMemory[city] != undefined){
+        console.log('Got data from the Memory');
+        res.send(myMemory[city]);
+    }else{
+        const URLMovie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_KEY}&query=${city}`
+        
+    {
     axios
         .get(URLMovie)
         .then(movieStatus => {
             let moviesArray = movieStatus.data.results
 
-            res.send(Movie.moviesForObject(moviesArray));
+            res.send(movies.moviesForObject(moviesArray));
         })
         .catch(err => {
             res.send(err);
         })
 }
+}
 
 
-Movie.moviesForObject = (moviesObj) => {
+movies.moviesForObject = (moviesObj) => {
 
     const forMoviesObj = [];
     moviesObj.map(element => {
-
+        myMemory[city] = forMoviesObj;
         const title = element.title
         const overview = element.overview
         const vote_average = element.vote_average
@@ -38,7 +46,7 @@ Movie.moviesForObject = (moviesObj) => {
     });
     return forMoviesObj;
 }
-
+    }
 
 class Movies {
     constructor(title, overview, vote_average, vote_count, poster_path, popularity, release_date) {
@@ -52,4 +60,4 @@ class Movies {
     }
 }
 
-module.exports = Movie;
+module.exports = movies;
