@@ -4,7 +4,7 @@ const Movie = {};
 
 const movieMemory={};
 
- Movie.handelMovies = function(req, res) {
+ Movie.handelMovies = async function(req, res) {
      let movieArr=[];
 
     let {city}=req.query;

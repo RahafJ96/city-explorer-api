@@ -3,7 +3,7 @@ const axios = require('axios');
 const Weather = {};
 const weatherMemory={};
 
-Weather.handelWeather = function(req, res) {
+ Weather.handelWeather = async function(req, res) {
     
     try{
     const city = req.query.cityName
@@ -56,6 +56,7 @@ Weather.handelWeather = function(req, res) {
 //     });
 //     return forCastObj;
 // };
+
 class Forcast {
     constructor(description, date) {
         this.date = date;
