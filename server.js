@@ -11,7 +11,6 @@ const Weather = require('./Weather')
 const movies = require('./movies')
 
 
-
 //http://localhost:3010/getWeather?lat=31.95&lon=35.91&cityName=amman
 server.get('/getWeather', Weather.getWeatherHandler);
 
