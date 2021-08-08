@@ -2,18 +2,18 @@ const axios = require('axios');
 
 const movies = {};
 
-// const myMemory = {};
+const myMemory = {};
 
 
 movies.getMovieHandler = async function (req, res) {
     const city = req.query.city
 
 
-    // if (myMemory[city] !== undefined) {
+    if (myMemory[city] !== undefined) {
         console.log('get the data from the Memory');
-        // res.send(myMemory[city]);
-    // }
-    // else {
+        res.send(myMemory[city]);
+    }
+    else {
         // https://api.themoviedb.org/3/search/movie?api_key=41875812c2b323e366b30029131d151b&query=amman
         const URLMovie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_KEY}&query=${city}`
 
@@ -34,7 +34,7 @@ movies.getMovieHandler = async function (req, res) {
 
             const forMoviesObj = [];
             moviesObj.map(element => {
-            //    myMemory[city] = forMoviesObj;
+               myMemory[city] = forMoviesObj;
                console.log('Data from API');
                 const title = element.title
                 const overview = element.overview
@@ -49,7 +49,7 @@ movies.getMovieHandler = async function (req, res) {
                 console.log(forMoviesObj);
             });
             return forMoviesObj;
-        // }
+        }
 
     }
 
