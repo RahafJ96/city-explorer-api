@@ -32,6 +32,7 @@ Weather.wetherForObject = (weatherObj) => {
     });
     return forCastObj;
 };
+
 class Forcast {
     constructor(description, date) {
         this.date = date;
